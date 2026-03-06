@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handwerker Management App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 Handwerker Management System</h1>
+            <p class="subtitle">Verwaltung von Handwerkern, Kunden und Aufträgen</p>
+        </header>
+
+        <!-- Statistics Dashboard -->
+        <div class="statistics-dashboard">
+            <div class="stat-card">
+                <div class="stat-icon">👷</div>
+                <div class="stat-info">
+                    <h3 id="stat-handwerker">0</h3>
+                    <p>Handwerker</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-info">
+                    <h3 id="stat-kunden">0</h3>
+                    <p>Kunden</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📋</div>
+                <div class="stat-info">
+                    <h3 id="stat-auftrage">0</h3>
+                    <p>Aufträge</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-info">
+                    <h3 id="stat-offen">0</h3>
+                    <p>Offen</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="showTab('handwerker')">Handwerker</button>
+            <button class="tab-button" onclick="showTab('kunden')">Kunden</button>
+            <button class="tab-button" onclick="showTab('auftrage')">Aufträge</button>
+        </div>
+
+        <!-- Handwerker Tab -->
+        <div id="handwerker-tab" class="tab-content active">
+            <div class="section-header">
+                <h2>Handwerker Verwaltung</h2>
+                <button class="btn btn-primary" onclick="showHandwerkerForm()">+ Neuer Handwerker</button>
+            </div>
+
+            <div id="handwerker-form" class="form-container" style="display: none;">
+                <h3 id="handwerker-form-title">Neuer Handwerker</h3>
+                <form id="handwerker-form-element" onsubmit="saveHandwerker(event)">
+                    <input type="hidden" id="handwerker-id">
+                    <div class="form-group">
+                        <label>Name *</label>
+                        <input type="text" id="handwerker-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Fachgebiet *</label>
+                        <select id="handwerker-fachgebiet" required>
+                            <option value="">Bitte wählen...</option>
+                            <option value="Elektriker">Elektriker</option>
+                            <option value="Klempner">Klempner</option>
+                            <option value="Maler">Maler</option>
+                            <option value="Schreiner">Schreiner</option>
+                            <option value="Maurer">Maurer</option>
+                            <option value="Dachdecker">Dachdecker</option>
+                            <option value="Heizungsbauer">Heizungsbauer</option>
+                            <option value="Fliesenleger">Fliesenleger</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefon *</label>
+                        <input type="tel" id="handwerker-telefon" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="handwerker-email">
+                    </div>
+                    <div class="form-group">
+                        <label>Stundensatz (€)</label>
+                        <input type="number" id="handwerker-stundensatz" step="0.01" min="0">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Speichern</button>
+                        <button type="button" class="btn btn-secondary" onclick="cancelHandwerkerForm()">Abbrechen</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="handwerker-list" class="list-container"></div>
+        </div>
+
+        <!-- Kunden Tab -->
+        <div id="kunden-tab" class="tab-content">
+            <div class="section-header">
+                <h2>Kunden Verwaltung</h2>
+                <button class="btn btn-primary" onclick="showKundenForm()">+ Neuer Kunde</button>
+            </div>
+
+            <div id="kunden-form" class="form-container" style="display: none;">
+                <h3 id="kunden-form-title">Neuer Kunde</h3>
+                <form id="kunden-form-element" onsubmit="saveKunde(event)">
+                    <input type="hidden" id="kunden-id">
+                    <div class="form-group">
+                        <label>Name *</label>
+                        <input type="text" id="kunden-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Adresse *</label>
+                        <input type="text" id="kunden-adresse" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefon *</label>
+                        <input type="tel" id="kunden-telefon" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="kunden-email">
+                    </div>
+                    <div class="form-group">
+                        <label>Notizen</label>
+                        <textarea id="kunden-notizen" rows="3"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Speichern</button>
+                        <button type="button" class="btn btn-secondary" onclick="cancelKundenForm()">Abbrechen</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="kunden-list" class="list-container"></div>
+        </div>
+
+        <!-- Aufträge Tab -->
+        <div id="auftrage-tab" class="tab-content">
+            <div class="section-header">
+                <h2>Aufträge Verwaltung</h2>
+                <button class="btn btn-primary" onclick="showAuftrageForm()">+ Neuer Auftrag</button>
+            </div>
+
+            <div id="auftrage-form" class="form-container" style="display: none;">
+                <h3 id="auftrage-form-title">Neuer Auftrag</h3>
+                <form id="auftrage-form-element" onsubmit="saveAuftrag(event)">
+                    <input type="hidden" id="auftrage-id">
+                    <div class="form-group">
+                        <label>Titel *</label>
+                        <input type="text" id="auftrage-titel" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Beschreibung *</label>
+                        <textarea id="auftrage-beschreibung" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Kunde *</label>
+                        <select id="auftrage-kunde" required>
+                            <option value="">Bitte wählen...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Handwerker *</label>
+                        <select id="auftrage-handwerker" required>
+                            <option value="">Bitte wählen...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Status *</label>
+                        <select id="auftrage-status" required>
+                            <option value="Offen">Offen</option>
+                            <option value="In Bearbeitung">In Bearbeitung</option>
+                            <option value="Abgeschlossen">Abgeschlossen</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Startdatum</label>
+                        <input type="date" id="auftrage-startdatum">
+                    </div>
+                    <div class="form-group">
+                        <label>Enddatum</label>
+                        <input type="date" id="auftrage-enddatum">
+                    </div>
+                    <div class="form-group">
+                        <label>Kosten (€)</label>
+                        <input type="number" id="auftrage-kosten" step="0.01" min="0">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Speichern</button>
+                        <button type="button" class="btn btn-secondary" onclick="cancelAuftrageForm()">Abbrechen</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="auftrage-list" class="list-container"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
