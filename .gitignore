@@ -1,0 +1,7 @@
+node_modules/
+server/handwerker.db
+client/build/
+.DS_Store
+*.log
+npm-debug.log*
+.env
