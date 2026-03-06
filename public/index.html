@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handwerker Manager</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav class="sidebar">
+    <div class="logo">
+      <span class="icon">🔧</span>
+      <span>Handwerker<br>Manager</span>
+    </div>
+    <ul class="nav-menu">
+      <li class="active" data-view="dashboard">📊 Dashboard</li>
+      <li data-view="workers">👷 Mitarbeiter</li>
+      <li data-view="customers">👥 Kunden</li>
+      <li data-view="jobs">📋 Aufträge</li>
+      <li data-view="time">⏱️ Zeiterfassung</li>
+    </ul>
+  </nav>
+
+  <main class="content">
+    <div id="dashboard" class="view active">
+      <h1>Dashboard</h1>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">👷</div>
+          <div class="stat-info">
+            <span class="stat-value" id="workerCount">0</span>
+            <span class="stat-label">Aktive Mitarbeiter</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📋</div>
+          <div class="stat-info">
+            <span class="stat-value" id="jobCount">0</span>
+            <span class="stat-label">Aktive Aufträge</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⏱️</div>
+          <div class="stat-info">
+            <span class="stat-value" id="todayHours">0</span>
+            <span class="stat-label">Stunden heute</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">💰</div>
+          <div class="stat-info">
+            <span class="stat-value" id="totalRevenue">0€</span>
+            <span class="stat-label">Gesamtumsatz</span>
+          </div>
+        </div>
+      </div>
+      <div class="recent-section">
+        <h2>Aktive Aufträge</h2>
+        <div id="recentJobs"></div>
+      </div>
+    </div>
+
+    <div id="workers" class="view">
+      <div class="header-row">
+        <h1>Mitarbeiter</h1>
+        <button class="btn btn-primary" onclick="showModal('worker')">+ Neuer Mitarbeiter</button>
+      </div>
+      <div id="workersList" class="grid-list"></div>
+    </div>
+
+    <div id="customers" class="view">
+      <div class="header-row">
+        <h1>Kunden</h1>
+        <button class="btn btn-primary" onclick="showModal('customer')">+ Neuer Kunde</button>
+      </div>
+      <div id="customersList" class="grid-list"></div>
+    </div>
+
+    <div id="jobs" class="view">
+      <div class="header-row">
+        <h1>Aufträge</h1>
+        <button class="btn btn-primary" onclick="showModal('job')">+ Neuer Auftrag</button>
+      </div>
+      <div id="jobsList" class="grid-list"></div>
+    </div>
+
+    <div id="time" class="view">
+      <div class="header-row">
+        <h1>Zeiterfassung</h1>
+        <button class="btn btn-primary" onclick="showModal('timeEntry')">+ Zeiteintrag</button>
+      </div>
+      <div id="timeEntriesList" class="table-list"></div>
+    </div>
+  </main>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <form id="modalForm"></form>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
