@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Handwerker Manager</title>
+    <meta name="description" content="Einfache Handwerker-Management-App: Kunden, Aufträge, Rechnungen – lokal im Browser gespeichert." />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">HM</div>
+        <div>
+          <div class="brand-title">Handwerker Manager</div>
+          <div class="brand-subtitle" id="companyNameSubtitle">Offline · LocalStorage</div>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <button class="button button-ghost" id="backupBtn" type="button">Backup</button>
+        <label class="button button-ghost file-label" for="restoreInput">Restore</label>
+        <input id="restoreInput" type="file" accept="application/json" hidden />
+        <button class="button" id="settingsBtn" type="button">Einstellungen</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <nav class="sidebar" aria-label="Navigation">
+        <a class="nav-item" href="#/dashboard" data-route="/dashboard">Dashboard</a>
+        <a class="nav-item" href="#/customers" data-route="/customers">Kunden</a>
+        <a class="nav-item" href="#/jobs" data-route="/jobs">Aufträge</a>
+        <a class="nav-item" href="#/invoices" data-route="/invoices">Rechnungen</a>
+        <div class="sidebar-footnote">
+          <div class="muted">Tipp: Daten bleiben lokal im Browser.</div>
+        </div>
+      </nav>
+
+      <main class="content" id="app" aria-live="polite"></main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <div class="modal" id="modal" aria-hidden="true">
+      <div class="modal-backdrop" data-close="true"></div>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-head">
+          <div class="modal-title" id="modalTitle">Dialog</div>
+          <button class="icon-button" id="modalClose" type="button" aria-label="Schließen">×</button>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+      </div>
+    </div>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
+
