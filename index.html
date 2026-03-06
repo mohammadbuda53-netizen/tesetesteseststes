@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Handwerker Management</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="header">
+        <h1>Handwerker Management</h1>
+        <p>Verwalte Verfügbarkeit, Priorität und Kontaktdaten deiner Handwerker an einem Ort.</p>
+      </header>
+
+      <section class="panel">
+        <h2>Neuen Handwerker anlegen</h2>
+        <form id="craftsman-form" class="form-grid">
+          <label>
+            Name *
+            <input id="name" name="name" type="text" required maxlength="80" />
+          </label>
+
+          <label>
+            Gewerk *
+            <select id="trade" name="trade" required>
+              <option value="">Bitte wählen</option>
+              <option value="Elektrik">Elektrik</option>
+              <option value="Sanitär">Sanitär</option>
+              <option value="Heizung">Heizung</option>
+              <option value="Maler">Maler</option>
+              <option value="Trockenbau">Trockenbau</option>
+              <option value="Bodenleger">Bodenleger</option>
+              <option value="Sonstiges">Sonstiges</option>
+            </select>
+          </label>
+
+          <label>
+            Telefon
+            <input id="phone" name="phone" type="tel" maxlength="40" />
+          </label>
+
+          <label>
+            Status
+            <select id="status" name="status">
+              <option value="frei">frei</option>
+              <option value="eingeplant">eingeplant</option>
+              <option value="im Einsatz">im Einsatz</option>
+            </select>
+          </label>
+
+          <label>
+            Priorität
+            <select id="priority" name="priority">
+              <option value="niedrig">niedrig</option>
+              <option value="mittel" selected>mittel</option>
+              <option value="hoch">hoch</option>
+            </select>
+          </label>
+
+          <label class="full-width">
+            Notiz
+            <textarea id="note" name="note" rows="3" maxlength="400"></textarea>
+          </label>
+
+          <div class="form-actions full-width">
+            <button type="submit" class="btn primary">Speichern</button>
+            <button type="reset" class="btn secondary">Zurücksetzen</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="toolbar">
+          <h2>Übersicht</h2>
+          <div class="filters">
+            <label>
+              Gewerk filtern
+              <select id="filter-trade">
+                <option value="alle">Alle</option>
+              </select>
+            </label>
+
+            <label>
+              Status filtern
+              <select id="filter-status">
+                <option value="alle">Alle</option>
+                <option value="frei">frei</option>
+                <option value="eingeplant">eingeplant</option>
+                <option value="im Einsatz">im Einsatz</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div id="stats" class="stats"></div>
+        <div id="list" class="list"></div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
